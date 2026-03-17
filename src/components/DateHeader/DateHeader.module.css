@@ -1,0 +1,49 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--color-surface);
+  border-bottom: 1px solid #e5e5ea;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navBtn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: var(--color-primary);
+  padding: 4px 12px;
+  cursor: pointer;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 8px;
+}
+
+.navBtn:active {
+  background: rgba(0, 122, 255, 0.1);
+}
+
+.dateLabel {
+  flex: 1;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.manageBtn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--color-primary);
+  padding: 4px 8px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 8px;
+}
+
+.manageBtn:active {
+  background: rgba(0, 122, 255, 0.1);
+}
