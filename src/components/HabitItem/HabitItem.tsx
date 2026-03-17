@@ -19,7 +19,7 @@ export function HabitItem({ habit, completed, streak, onToggle }: Props) {
         {completed ? '✓' : ''}
       </span>
       <span className={styles.name}>{habit.name}</span>
-      {streak >= 1 && (
+      {streak >= 2 && (
         <span className={styles.streak} aria-label={`${streak} day streak`}>
           🔥 {streak}
         </span>
