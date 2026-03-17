@@ -1,0 +1,11 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "dev": true
+    }
+  },
+  "alias": ["checklist-five-lac.vercel.app"],
+  "build": {
+    "env": {}
+  }
+}
