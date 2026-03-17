@@ -7,6 +7,11 @@ interface UseSwipeOptions {
 
 export function useSwipe<T extends HTMLElement>({ onSwipeLeft, onSwipeRight }: UseSwipeOptions) {
   const ref = useRef<T>(null);
+  // Store callbacks in refs so the effect never needs to re-run (no listener thrash)
+  const onSwipeLeftRef = useRef(onSwipeLeft);
+  const onSwipeRightRef = useRef(onSwipeRight);
+  onSwipeLeftRef.current = onSwipeLeft;
+  onSwipeRightRef.current = onSwipeRight;
 
   useEffect(() => {
     const el = ref.current;
@@ -26,9 +31,9 @@ export function useSwipe<T extends HTMLElement>({ onSwipeLeft, onSwipeRight }: U
 
       if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
         if (deltaX < 0) {
-          onSwipeLeft?.();
+          onSwipeLeftRef.current?.();
         } else {
-          onSwipeRight?.();
+          onSwipeRightRef.current?.();
         }
       }
     }
@@ -40,7 +45,7 @@ export function useSwipe<T extends HTMLElement>({ onSwipeLeft, onSwipeRight }: U
       el.removeEventListener('touchstart', handleTouchStart);
       el.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [onSwipeLeft, onSwipeRight]);
+  }, []); // stable — callbacks accessed via refs
 
   return ref;
 }

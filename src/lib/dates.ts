@@ -6,16 +6,12 @@ export function toYMD(date: Date): string {
 }
 
 export function formatDisplay(date: Date): string {
-  const today = toYMD(new Date());
+  const now = new Date();
   const dateStr = toYMD(date);
 
-  if (dateStr === today) return 'Today';
-
-  const yesterday = toYMD(addDays(new Date(), -1));
-  if (dateStr === yesterday) return 'Yesterday';
-
-  const tomorrow = toYMD(addDays(new Date(), 1));
-  if (dateStr === tomorrow) return 'Tomorrow';
+  if (dateStr === toYMD(now)) return 'Today';
+  if (dateStr === toYMD(addDays(now, -1))) return 'Yesterday';
+  if (dateStr === toYMD(addDays(now, 1))) return 'Tomorrow';
 
   return date.toLocaleDateString('en-US', {
     weekday: 'short',

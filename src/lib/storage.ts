@@ -3,34 +3,23 @@ import type { Habit, Completion } from './types';
 const HABITS_KEY = 'habits';
 const COMPLETIONS_KEY = 'completions';
 
-export function getHabits(): Habit[] {
+function getFromStorage<T>(key: string): T[] {
   try {
-    return JSON.parse(localStorage.getItem(HABITS_KEY) ?? '[]');
+    return JSON.parse(localStorage.getItem(key) ?? '[]');
   } catch {
     return [];
   }
 }
 
-export function setHabits(habits: Habit[]): void {
+function setToStorage<T>(key: string, data: T[]): void {
   try {
-    localStorage.setItem(HABITS_KEY, JSON.stringify(habits));
+    localStorage.setItem(key, JSON.stringify(data));
   } catch {
     // private browsing or storage full — state still updates in memory
   }
 }
 
-export function getCompletions(): Completion[] {
-  try {
-    return JSON.parse(localStorage.getItem(COMPLETIONS_KEY) ?? '[]');
-  } catch {
-    return [];
-  }
-}
-
-export function setCompletions(completions: Completion[]): void {
-  try {
-    localStorage.setItem(COMPLETIONS_KEY, JSON.stringify(completions));
-  } catch {
-    // private browsing or storage full — state still updates in memory
-  }
-}
+export const getHabits = (): Habit[] => getFromStorage<Habit>(HABITS_KEY);
+export const setHabits = (habits: Habit[]): void => setToStorage(HABITS_KEY, habits);
+export const getCompletions = (): Completion[] => getFromStorage<Completion>(COMPLETIONS_KEY);
+export const setCompletions = (completions: Completion[]): void => setToStorage(COMPLETIONS_KEY, completions);

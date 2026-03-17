@@ -34,6 +34,7 @@ export function useHabits() {
   }
 
   function reorderHabits(oldIndex: number, newIndex: number) {
+    if (oldIndex === newIndex) return;
     const reordered = arrayMove(habits, oldIndex, newIndex).map((h, i) => ({
       ...h,
       order: i,

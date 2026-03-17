@@ -8,28 +8,25 @@ export function useCompletions() {
     getCompletions()
   );
 
+  function matchesEntry(habitId: string, dateStr: string) {
+    return (c: Completion) => c.habitId === habitId && c.date === dateStr;
+  }
+
   function toggleCompletion(habitId: string, date: Date) {
     const dateStr = toYMD(date);
-    const exists = completions.some(
-      (c) => c.habitId === habitId && c.date === dateStr
-    );
+    const matches = matchesEntry(habitId, dateStr);
+    const exists = completions.some(matches);
 
-    let updated: Completion[];
-    if (exists) {
-      updated = completions.filter(
-        (c) => !(c.habitId === habitId && c.date === dateStr)
-      );
-    } else {
-      updated = [...completions, { habitId, date: dateStr }];
-    }
+    const updated = exists
+      ? completions.filter((c) => !matches(c))
+      : [...completions, { habitId, date: dateStr }];
 
     setCompletionsState(updated);
     setCompletions(updated);
   }
 
   function isComplete(habitId: string, date: Date): boolean {
-    const dateStr = toYMD(date);
-    return completions.some((c) => c.habitId === habitId && c.date === dateStr);
+    return completions.some(matchesEntry(habitId, toYMD(date)));
   }
 
   return { toggleCompletion, isComplete };
