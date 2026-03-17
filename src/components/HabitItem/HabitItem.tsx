@@ -4,10 +4,11 @@ import styles from './HabitItem.module.css';
 interface Props {
   habit: Habit;
   completed: boolean;
+  streak: number;
   onToggle: () => void;
 }
 
-export function HabitItem({ habit, completed, onToggle }: Props) {
+export function HabitItem({ habit, completed, streak, onToggle }: Props) {
   return (
     <button
       className={`${styles.item} ${completed ? styles.completed : ''}`}
@@ -18,6 +19,11 @@ export function HabitItem({ habit, completed, onToggle }: Props) {
         {completed ? '✓' : ''}
       </span>
       <span className={styles.name}>{habit.name}</span>
+      {streak >= 1 && (
+        <span className={styles.streak} aria-label={`${streak} day streak`}>
+          🔥 {streak}
+        </span>
+      )}
     </button>
   );
 }

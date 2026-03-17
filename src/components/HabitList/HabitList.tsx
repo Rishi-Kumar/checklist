@@ -1,15 +1,17 @@
-import type { Habit } from '../../lib/types';
+import type { Habit, Completion } from '../../lib/types';
+import { getStreak } from '../../lib/stats';
 import { HabitItem } from '../HabitItem/HabitItem';
 import styles from './HabitList.module.css';
 
 interface Props {
   habits: Habit[];
   date: Date;
+  completions: Completion[];
   isComplete: (habitId: string, date: Date) => boolean;
   onToggle: (habitId: string, date: Date) => void;
 }
 
-export function HabitList({ habits, date, isComplete, onToggle }: Props) {
+export function HabitList({ habits, date, completions, isComplete, onToggle }: Props) {
   if (habits.length === 0) {
     return (
       <div className={styles.empty}>
@@ -26,6 +28,7 @@ export function HabitList({ habits, date, isComplete, onToggle }: Props) {
           <HabitItem
             habit={habit}
             completed={isComplete(habit.id, date)}
+            streak={getStreak(habit.id, completions)}
             onToggle={() => onToggle(habit.id, date)}
           />
         </li>

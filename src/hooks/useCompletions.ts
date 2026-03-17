@@ -29,5 +29,5 @@ export function useCompletions() {
     return completions.some(matchesEntry(habitId, toYMD(date)));
   }
 
-  return { toggleCompletion, isComplete };
+  return { completions, toggleCompletion, isComplete };
 }

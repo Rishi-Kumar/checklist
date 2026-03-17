@@ -38,6 +38,7 @@
 }
 
 .name {
+  flex: 1;
   font-size: 17px;
   color: var(--color-text);
   transition: color 0.15s;
@@ -46,4 +47,12 @@
 .completed .name {
   color: #8e8e93;
   text-decoration: line-through;
+}
+
+.streak {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff9500;
+  flex-shrink: 0;
+  letter-spacing: -0.2px;
 }

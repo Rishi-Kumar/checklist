@@ -25,12 +25,29 @@
   background: rgba(0, 122, 255, 0.1);
 }
 
-.dateLabel {
+.center {
   flex: 1;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.dateLabel {
   font-size: 17px;
   font-weight: 600;
   color: var(--color-text);
+}
+
+.score {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8e8e93;
+  letter-spacing: 0.3px;
+}
+
+.scoreDone {
+  color: #34c759;
 }
 
 .manageBtn {

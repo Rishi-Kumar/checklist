@@ -5,9 +5,12 @@ interface Props {
   date: Date;
   onDateChange: (date: Date) => void;
   onManage: () => void;
+  score: { done: number; total: number } | null;
 }
 
-export function DateHeader({ date, onDateChange, onManage }: Props) {
+export function DateHeader({ date, onDateChange, onManage, score }: Props) {
+  const allDone = score !== null && score.done === score.total;
+
   return (
     <header className={styles.header}>
       <button
@@ -17,7 +20,14 @@ export function DateHeader({ date, onDateChange, onManage }: Props) {
       >
         ‹
       </button>
-      <span className={styles.dateLabel}>{formatDisplay(date)}</span>
+      <div className={styles.center}>
+        <span className={styles.dateLabel}>{formatDisplay(date)}</span>
+        {score && (
+          <span className={`${styles.score} ${allDone ? styles.scoreDone : ''}`}>
+            {score.done}/{score.total}
+          </span>
+        )}
+      </div>
       <button
         className={styles.navBtn}
         onClick={() => onDateChange(addDays(date, 1))}
