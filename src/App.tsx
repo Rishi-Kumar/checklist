@@ -15,7 +15,7 @@ export default function App() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showAddModal, setShowAddModal] = useState(false);
 
-  const { habits, addHabit, deleteHabit, reorderHabits } = useHabits();
+  const { habits, addHabit, deleteHabit, reorderHabits, editHabit } = useHabits();
   const { completions, toggleCompletion, isComplete } = useCompletions();
 
   const swipeRef = useSwipe<HTMLDivElement>({
@@ -62,6 +62,7 @@ export default function App() {
           onClose={() => setView('main')}
           onDelete={deleteHabit}
           onReorder={reorderHabits}
+          onEdit={editHabit}
         />
       )}
     </div>

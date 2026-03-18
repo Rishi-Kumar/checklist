@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import {
   DndContext,
   PointerSensor,
@@ -15,12 +16,20 @@ import { CSS } from '@dnd-kit/utilities';
 import type { Habit } from '../../lib/types';
 import styles from './ManageView.module.css';
 
+const LONG_PRESS_MS = 500;
+
 interface SortableRowProps {
   habit: Habit;
   onDelete: (id: string) => void;
+  onEdit: (id: string, name: string) => void;
 }
 
-function SortableRow({ habit, onDelete }: SortableRowProps) {
+function SortableRow({ habit, onDelete, onEdit }: SortableRowProps) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editValue, setEditValue] = useState(habit.name);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: habit.id });
 
@@ -30,12 +39,63 @@ function SortableRow({ habit, onDelete }: SortableRowProps) {
     opacity: isDragging ? 0.5 : 1,
   };
 
+  function clearTimer() {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  }
+
+  function handleTouchStart() {
+    timerRef.current = setTimeout(() => {
+      setEditValue(habit.name);
+      setIsEditing(true);
+      setTimeout(() => inputRef.current?.focus(), 0);
+    }, LONG_PRESS_MS);
+  }
+
+  function commitEdit() {
+    const trimmed = editValue.trim();
+    if (trimmed && trimmed !== habit.name) onEdit(habit.id, trimmed);
+    setIsEditing(false);
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') commitEdit();
+    if (e.key === 'Escape') setIsEditing(false);
+  }
+
   return (
     <div ref={setNodeRef} style={style} className={styles.row}>
-      <span className={styles.dragHandle} {...attributes} {...listeners} aria-label="Drag to reorder">
+      <span
+        className={styles.dragHandle}
+        {...attributes}
+        {...(isEditing ? {} : listeners)}
+        aria-label="Drag to reorder"
+      >
         ☰
       </span>
-      <span className={styles.habitName}>{habit.name}</span>
+
+      {isEditing ? (
+        <input
+          ref={inputRef}
+          className={styles.editInput}
+          value={editValue}
+          onChange={(e) => setEditValue(e.target.value)}
+          onBlur={commitEdit}
+          onKeyDown={handleKeyDown}
+        />
+      ) : (
+        <span
+          className={styles.habitName}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={clearTimer}
+          onTouchMove={clearTimer}
+        >
+          {habit.name}
+        </span>
+      )}
+
       <button
         className={styles.deleteBtn}
         onClick={() => onDelete(habit.id)}
@@ -52,9 +112,10 @@ interface Props {
   onClose: () => void;
   onDelete: (id: string) => void;
   onReorder: (oldIndex: number, newIndex: number) => void;
+  onEdit: (id: string, name: string) => void;
 }
 
-export function ManageView({ habits, onClose, onDelete, onReorder }: Props) {
+export function ManageView({ habits, onClose, onDelete, onReorder, onEdit }: Props) {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(TouchSensor, {
@@ -95,6 +156,7 @@ export function ManageView({ habits, onClose, onDelete, onReorder }: Props) {
                     key={habit.id}
                     habit={habit}
                     onDelete={onDelete}
+                    onEdit={onEdit}
                   />
                 ))}
               </div>

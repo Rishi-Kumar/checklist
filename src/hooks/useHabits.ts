@@ -33,6 +33,14 @@ export function useHabits() {
     setCompletions(completions);
   }
 
+  function editHabit(id: string, name: string) {
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    const updated = habits.map((h) => h.id === id ? { ...h, name: trimmed } : h);
+    setHabitsState(updated);
+    setHabits(updated);
+  }
+
   function reorderHabits(oldIndex: number, newIndex: number) {
     if (oldIndex === newIndex) return;
     const reordered = arrayMove(habits, oldIndex, newIndex).map((h, i) => ({
@@ -43,5 +51,5 @@ export function useHabits() {
     setHabits(reordered);
   }
 
-  return { habits, addHabit, deleteHabit, reorderHabits };
+  return { habits, addHabit, deleteHabit, reorderHabits, editHabit };
 }

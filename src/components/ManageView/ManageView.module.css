@@ -81,6 +81,8 @@
   padding: 4px;
   flex-shrink: 0;
   -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .dragHandle:active {
@@ -91,6 +93,21 @@
   flex: 1;
   font-size: 17px;
   color: var(--color-text);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.editInput {
+  flex: 1;
+  font-size: 17px;
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  padding: 6px 10px;
+  outline: none;
+  -webkit-appearance: none;
 }
 
 .deleteBtn {
