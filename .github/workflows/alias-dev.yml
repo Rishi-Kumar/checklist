@@ -1,0 +1,21 @@
+name: Alias dev deployment
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  alias:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Vercel deployment
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.2
+        id: wait
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 120
+          check_interval: 5
+
+      - name: Assign stable alias
+        run: |
+          npx vercel alias set "${{ steps.wait.outputs.url }}" checklist-rishi-dev.vercel.app --token=${{ secrets.VERCEL_TOKEN }} --scope=rishis-projects-1e444671
