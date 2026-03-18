@@ -32,7 +32,7 @@
   justify-content: space-between;
   padding: 16px 16px 12px;
   background: var(--color-surface);
-  border-bottom: 1px solid #e5e5ea;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .title {
@@ -55,7 +55,7 @@
 }
 
 .doneBtn:active {
-  background: rgba(0, 122, 255, 0.1);
+  background: var(--color-active);
 }
 
 .list {
@@ -68,14 +68,14 @@
   display: flex;
   align-items: center;
   background: var(--color-surface);
-  border-bottom: 1px solid #e5e5ea;
+  border-bottom: 1px solid var(--color-border);
   padding: 14px 16px;
   gap: 12px;
   touch-action: none;
 }
 
 .dragHandle {
-  color: #c7c7cc;
+  color: var(--color-secondary);
   font-size: 18px;
   cursor: grab;
   padding: 4px;
@@ -106,12 +106,12 @@
 }
 
 .deleteBtn:active {
-  background: rgba(255, 59, 48, 0.1);
+  background: rgba(255, 69, 58, 0.15);
 }
 
 .empty {
   padding: 40px 24px;
   text-align: center;
-  color: #8e8e93;
+  color: var(--color-secondary);
   font-size: 16px;
 }

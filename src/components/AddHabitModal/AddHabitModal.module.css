@@ -31,7 +31,7 @@
 .handle {
   width: 36px;
   height: 4px;
-  background: #c7c7cc;
+  background: var(--color-border);
   border-radius: 2px;
   align-self: center;
   margin-bottom: 4px;
@@ -54,9 +54,9 @@
   flex: 1;
   font-size: 17px;
   padding: 12px 14px;
-  border: 1px solid #c7c7cc;
+  border: 1px solid var(--color-border);
   border-radius: 10px;
-  background: #f2f2f7;
+  background: var(--color-input-bg);
   color: var(--color-text);
   outline: none;
   -webkit-appearance: none;
@@ -64,7 +64,7 @@
 
 .input:focus {
   border-color: var(--color-primary);
-  background: #fff;
+  background: var(--color-input-bg);
 }
 
 .submitBtn {

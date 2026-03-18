@@ -9,19 +9,19 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   gap: 14px;
-  border-bottom: 1px solid #e5e5ea;
+  border-bottom: 1px solid var(--color-border);
   transition: background 0.1s;
 }
 
 .item:active {
-  background: #f2f2f7;
+  background: var(--color-active);
 }
 
 .checkbox {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  border: 2px solid #c7c7cc;
+  border: 2px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +45,7 @@
 }
 
 .completed .name {
-  color: #8e8e93;
+  color: var(--color-secondary);
   text-decoration: line-through;
 }
 

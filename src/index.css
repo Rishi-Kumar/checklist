@@ -5,11 +5,15 @@
 }
 
 :root {
-  --color-primary: #007aff;
-  --color-danger: #ff3b30;
-  --color-bg: #f2f2f7;
-  --color-surface: #ffffff;
-  --color-text: #1c1c1e;
+  --color-primary: #0a84ff;
+  --color-danger: #ff453a;
+  --color-bg: #000000;
+  --color-surface: #1c1c1e;
+  --color-text: #ffffff;
+  --color-border: #38383a;
+  --color-secondary: #8e8e93;
+  --color-input-bg: #2c2c2e;
+  --color-active: #2c2c2e;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
 }
